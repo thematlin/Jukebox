@@ -1,0 +1,17 @@
+﻿@model Jukebox.Business.Models.User
+
+<h2>Register!</h2>
+
+<div id="register-wrap">
+    <form action="@Url.Action("Create")" enctype="multipart/form-data" method="post">
+        <label for="userName">User name:</label>
+        @Html.TextBox("UserName", Model.UserName, new { id="UserName", disabled = "disabled" })
+        @Html.Hidden("userName", Model.UserName, new { id = "userName" })
+        <br />
+        <label for="name">Name:</label>
+        @Html.TextBox("Name", Model.Name, new { id = "Name" })
+        <br />
+        <input type="submit" value="Register" />
+    </form>
+
+</div>

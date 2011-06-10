@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8f3f6dcc-d053-4100-be08-475574826520" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8081/spotifire/metadata" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="metadata.xsd" MetadataType="Schema" ID="618a3a25-8d85-4c4a-9639-bfdbc8c0d735" SourceId="1" SourceUrl="http://localhost:8081/spotifire/metadata?xsd=xsd0" />
+    <MetadataFile FileName="metadata1.xsd" MetadataType="Schema" ID="bff02731-c304-437d-b6f9-93fbf770106f" SourceId="1" SourceUrl="http://localhost:8081/spotifire/metadata?xsd=xsd1" />
+    <MetadataFile FileName="metadata2.xsd" MetadataType="Schema" ID="9a2735f0-1078-4a08-9397-10181f2bfa87" SourceId="1" SourceUrl="http://localhost:8081/spotifire/metadata?xsd=xsd2" />
+    <MetadataFile FileName="metadata3.xsd" MetadataType="Schema" ID="61289af2-7be4-41d1-9ca6-2f8d89be8cd1" SourceId="1" SourceUrl="http://localhost:8081/spotifire/metadata?xsd=xsd3" />
+    <MetadataFile FileName="SpotifireServer.wsdl" MetadataType="Wsdl" ID="a539627e-3f4a-4f53-8563-87d3bcc8cf7a" SourceId="1" SourceUrl="http://localhost:8081/spotifire/metadata?wsdl" />
+    <MetadataFile FileName="metadata.disco" MetadataType="Disco" ID="db34481b-cb37-41f7-87d0-abc55686b432" SourceId="1" SourceUrl="http://localhost:8081/spotifire/metadata?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

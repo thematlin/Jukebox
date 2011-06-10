@@ -1,0 +1,43 @@
+﻿<div id="player">
+    <input type="text" disabled="disabled" id="currentSong" maxlength="60" value="Current song:" /><br />
+    <a href="#" id="playbackStart"><img class="media-icon" src="/Content/images/media-playback-start.png" title="Play" alt="Start" /></a>
+    <a href="#" id="playbackPause"><img class="media-icon" src="/Content/images/media-playback-pause.png" title="Pause" alt="Pause" /></a>
+    <a href="#" id="playbackNext"><img class="media-icon" src="/Content/images/next.png" alt="Next" title="Play next in playlist" /></a>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Playback/GetCurrentTrack',
+            success: function (result) {
+                if (result.Name) {
+                    $('#currentSong').val('Current song: ' + result.ArtistsAndName);
+                }
+            }
+        });
+
+        $('#playbackStart').click(function () {
+            $.ajax({
+                url: '/Playback/Play'
+            });
+
+            return false;
+        });
+
+        $('#playbackPause').click(function () {
+            $.ajax({
+                url: '/Playback/Pause'
+            });
+
+            return false;
+        });
+
+        $('#playbackNext').click(function () {
+            $.ajax({
+                url: '/Playback/PlayNext'
+            });
+
+            return false;
+        });
+    });
+</script>

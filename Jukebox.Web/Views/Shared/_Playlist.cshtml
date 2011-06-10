@@ -1,0 +1,23 @@
+﻿<div id="playlist">
+    <table id="tracksQueue">
+        
+    </table>
+</div>
+
+<script type="text/javascript">
+    
+    // Måste eventuellt ändra till live, för denna listan hämtas asynkront?
+
+    $(document).ready(function () {
+
+        UpdateQueueList();
+
+        $('#deleteSong').click(function () {
+            return false;
+        });
+
+        $('#infoSong').click(function () {
+            return false;
+        });
+    });
+</script>

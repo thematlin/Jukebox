@@ -1,0 +1,29 @@
+﻿@using Jukebox.Web.ExtensionMethods
+@using Jukebox.Business.Models.Contracts
+
+<a href="#" id="ShowAllSongs">Show all songs</a> | <a href="#" id="ShowSongsByArtis">Show songs by Artists</a> | <a href="#" id="ShowSongsByAlbum">Show songs by Album</a><br /><br />
+
+<h2>Show all songs</h2>
+
+@Html.LibraryTable(ViewBag.Tracks as IList<IJukeboxTrack>)
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.AddToQueue').click(function () {
+            var trackId = $(this).attr('id').split('_');
+            var trackPosition = trackId[1];
+
+            $.ajax({
+                url: '/Playback/PlayPlaylistTrack',
+                data: { trackId: trackPosition },
+                success: function (result) {
+                    UpdateQueueList();
+                }
+            });
+
+            return false;
+        });
+    });
+
+</script>
