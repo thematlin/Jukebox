@@ -22,8 +22,6 @@ namespace Jukebox.Infrastructure.Services
 
         public IList<IJukeboxTrack> GetPlaylistTracks()
         {
-            GuardLogIn();
-                
             var tracks = _spotiFire.GetPlaylistTracks(_spotiFirePlaylist.Id);
 
             return _mapEngine.MapSpotiFireTracksToJukeboxTracks(tracks);
@@ -31,15 +29,11 @@ namespace Jukebox.Infrastructure.Services
 
         public void EnqueueTrack(int trackId)
         {
-            GuardLogIn();
-
             _spotiFire.EnqueueTrack(_spotiFirePlaylist.Id, trackId);
         }
 
         public void PlayPlaylistTrack(int trackId)
         {
-            GuardLogIn();
-
             _spotiFire.PlayPlaylistTrack(_spotiFirePlaylist.Id, trackId);
         }
 
@@ -81,8 +75,6 @@ namespace Jukebox.Infrastructure.Services
 
         public ReadOnlyCollection<IJukeboxTrack> GetLibraryQueue()
         {
-            GuardLogIn();
-
             var spotiFireCustomQueue = _spotiFire.GetQueue();
 
             return _mapEngine.MapSpotiFireQueueToJukeboxQueue(spotiFireCustomQueue);
@@ -90,8 +82,6 @@ namespace Jukebox.Infrastructure.Services
 
         public ReadOnlyCollection<IJukeboxTrack> GetCustomQueue()
         {
-            GuardLogIn();
-
             var spotiFireCustomQueue = _spotiFire.GetCustomQueue();
 
             return _mapEngine.MapSpotiFireQueueToJukeboxQueue(spotiFireCustomQueue);
@@ -99,29 +89,21 @@ namespace Jukebox.Infrastructure.Services
 
         public void PlayNext()
         {
-            GuardLogIn();
-
             _spotiFire.PlayNext(_spotiFirePlaylist.Id);
         }
 
         public void Play()
         {
-            GuardLogIn();
-
             _spotiFire.PlayPause(_spotiFirePlaylist.Id);
         }
 
         public void Pause()
         {
-            GuardLogIn();
-            
             _spotiFire.PlayPause(_spotiFirePlaylist.Id);
         }
 
         public IJukeboxTrack GetCurrentTrack()
         {
-            GuardLogIn();
-
             var track = _spotiFire.GetCurrentTrack();
 
             return _mapEngine.MapSpotiFireTrackToJukeboxTrack(track);
@@ -129,8 +111,6 @@ namespace Jukebox.Infrastructure.Services
 
         public IJukeboxSearch Search(string query)
         {
-            GuardLogIn();
-
             var search = _spotiFire.Search(query);
 
             return _mapEngine.MapSpotiFireSearchToJukeboxSearch(search);
@@ -138,8 +118,6 @@ namespace Jukebox.Infrastructure.Services
 
         public void AddTrackFromSearch(string query, int trackId)
         {
-            GuardLogIn();
-
             _spotiFire.AddTrackFromSearchToPlaylist(_spotiFirePlaylist.Id, query, trackId);
         }
     }

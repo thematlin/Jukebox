@@ -8,7 +8,7 @@ namespace Jukebox.Web.DependencyResolution
     {
         public SpotiFireRegistry()
         {
-            For<ISpotiFireService>().Singleton().Use<SpotiFireService>().OnCreation(x => x.ConfigureSpotiFire());
+            For<ISpotiFireService>().Use<SpotiFireService>().OnCreation(x => x.ConfigureSpotiFire());
         }
     }
 }
