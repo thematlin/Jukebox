@@ -1,7 +1,7 @@
-﻿using System;
+﻿using System.Web.Security;
 using Jukebox.Infrastructure.Membership;
-using System.Web.Security;
-namespace Jukebox.Web.Code
+
+namespace Jukebox.Infrastructure.Security
 {
     public class FormsAuthenticationService : IFormsAuthentication
     {

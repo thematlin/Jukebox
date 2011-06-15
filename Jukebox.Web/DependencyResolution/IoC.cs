@@ -1,8 +1,6 @@
+using Jukebox.Infrastructure.Security;
 using Jukebox.Web.DependencyResolution;
 using StructureMap;
-using Jukebox.Infrastructure.Repositories;
-using Raven.Client;
-using Raven.Client.Document;
 using Jukebox.Infrastructure.Repositories.Ravendb;
 using Jukebox.Infrastructure.Membership;
 using Jukebox.Web.Code;
@@ -36,7 +34,6 @@ namespace Jukebox.Web {
                             x.For<IConsumerTokenManager>().Singleton().Use<InMemoryTokenManager>().Ctor<string>("consumerKey").Is("ewATkXLGvQtJ20wEgkVJDQ").Ctor<string>("consumerSecret").Is("AvSQdbm4TdLXHJjkMWxlOGXYNBjignACKzYko5KEOQ");
                             x.AddRegistry(new SpotiFireRegistry());
                             x.AddRegistry(new RavenRegistry());
-                            x.AddRegistry(new RepositoryRegistry());
                         });
 
             ObjectFactory.AssertConfigurationIsValid();

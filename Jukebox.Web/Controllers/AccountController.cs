@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.Security;
 using DotNetOpenAuth.OAuth;
-using DotNetOpenAuth.OAuth.Messages;
 using Jukebox.Business.Models;
 using Jukebox.Infrastructure.Membership;
 using Jukebox.Infrastructure.Repositories;
-using Jukebox.Web.Code;
-using Jukebox.Web.Models;
 using DotNetOpenAuth.OpenId.RelyingParty;
 using DotNetOpenAuth.OAuth.ChannelElements;
 using DotNetOpenAuth.OpenId;
@@ -26,13 +18,13 @@ namespace Jukebox.Web.Controllers
         private static readonly OpenIdRelyingParty Openid = new OpenIdRelyingParty();
 
         private readonly IFormsAuthentication _formsAuth;
-        private readonly IUserRepository _userRepository;
         private readonly IConsumerTokenManager _consumerTokenManager;
+        private readonly IRavenRepository _ravenRepository;
 
-        public AccountController(IFormsAuthentication formsAuth, IUserRepository userRepository, IConsumerTokenManager consumerTokenManager)
+        public AccountController(IFormsAuthentication formsAuth, IConsumerTokenManager consumerTokenManager, IRavenRepository ravenRepository)
         {
             _formsAuth = formsAuth;
-            _userRepository = userRepository;
+            _ravenRepository = ravenRepository;
             _consumerTokenManager = consumerTokenManager;
         }
 
@@ -107,6 +99,10 @@ namespace Jukebox.Web.Controllers
                         email = fetch.GetAttributeValue(WellKnownAttributes.Contact.Email);
                     }
                     return CreateUser(response.ClaimedIdentifier, firstName, lastName, email);
+                case AuthenticationStatus.Failed:
+                    return RedirectToAction("Index", "Library");
+                case AuthenticationStatus.Canceled:
+                    return RedirectToAction("Index", "Library");
                 default:
                     return RedirectToAction("LogOn");
             }
@@ -114,14 +110,16 @@ namespace Jukebox.Web.Controllers
 
         private ActionResult CreateUser(string username, string firstName, string lastName, string email)
         {
-            var user = _userRepository.Query().FirstOrDefault(x => x.UserName.Equals(username));
+            var user = _ravenRepository.SingleOrDefault<User>(x => x.UserName.Equals(username));
 
             if (user == null)
             {
                 user = new User
                            {
-                               Name = firstName + " " + lastName,
-                               UserName = username
+                               FirstName = firstName,
+                               LastName = lastName,
+                               UserName = username,
+                               Email = email
                            };
 
                 return View("Register", user);
@@ -135,9 +133,9 @@ namespace Jukebox.Web.Controllers
         [HttpPost]
         public ActionResult Create(User user)
         {
-            if (_userRepository.Query().FirstOrDefault(x => x.UserName.Equals(user.UserName)) == null)
+            if (_ravenRepository.SingleOrDefault<User>(x => x.UserName.Equals(user.UserName)) == null)
             {
-                _userRepository.AddUser(user);
+                _ravenRepository.Add(user);
             }
 
             _formsAuth.SignIn(user.UserName, false);

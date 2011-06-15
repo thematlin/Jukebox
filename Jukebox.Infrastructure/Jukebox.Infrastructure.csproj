@@ -54,6 +54,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,14 +68,13 @@
     <Compile Include="ObjectMapper\PlaylistMapper.cs" />
     <Compile Include="ObjectMapper\MapEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Base\IPersistentRepository.cs" />
-    <Compile Include="Repositories\Base\PersistentRepository.cs" />
-    <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\IRavenRepository.cs" />
     <Compile Include="Repositories\Ravendb\IRavenSessionFactory.cs" />
     <Compile Include="Repositories\Ravendb\IRavenSessionFactoryBuilder.cs" />
     <Compile Include="Repositories\Ravendb\RavenSessionFactory.cs" />
     <Compile Include="Repositories\Ravendb\RavenSessionFactoryBuilder.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\RavenRepository.cs" />
+    <Compile Include="Security\FormsAuthenticationService.cs" />
     <Compile Include="Service References\SpotiFireServer\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
