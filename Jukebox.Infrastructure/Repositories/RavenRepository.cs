@@ -32,6 +32,15 @@ namespace Jukebox.Infrastructure.Repositories
             _session.SaveChanges();
         }
 
+        public void AddRange<T>(IList<T> items) where T : IPersistable
+        {
+            foreach (var item in items)
+            {
+                _session.Store(item);
+            }
+            _session.SaveChanges();
+        }
+
         public void Delete<T>(T item) where T : IPersistable
         {
             _session.Delete(item);

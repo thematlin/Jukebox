@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Text;
 using Jukebox.Business.Models.Contracts;
+using System.Web.Mvc;
+using System.Web;
 namespace Jukebox.Web.Code
 {
     public static class TableBuilder
@@ -131,12 +133,14 @@ namespace Jukebox.Web.Code
 
         private static string GetImage(TrackTableKind kind)
         {
+            var virtaulPath = HttpRuntime.AppDomainAppVirtualPath.Equals("/") ? "" : HttpRuntime.AppDomainAppVirtualPath;
+
             switch (kind)
             {
                 case TrackTableKind.Library:
-                    return "<img src=\"/Content/images/add.png\" class=\"media-icon\" alt=\"Add to queue\" title=\"Add to queue\" />";
+                    return "<img src=\"" + virtaulPath + "/Content/images/add.png\" class=\"media-icon\" alt=\"Add to queue\" title=\"Add to queue\" />";
                 case TrackTableKind.Search:
-                    return "<img src=\"/Content/images/add.png\" class=\"media-icon\" alt=\"Add to library\" title=\"Add to library\" />";
+                    return "<img src=\"" + virtaulPath + "/Content/images/add.png\" class=\"media-icon\" alt=\"Add to library\" title=\"Add to library\" />";
             }
 
             return "";

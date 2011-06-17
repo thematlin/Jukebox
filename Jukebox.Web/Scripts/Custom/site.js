@@ -1,11 +1,15 @@
-﻿function UpdateQueueList() {
+﻿var baseUrl = '';
 
-    var deleteImageHtml = '<a href="#" class="deleteSong"><img class="media-icon" src="/Content/images/delete-shred.png" alt="Delete" title="Remove song from queue." /></a>';
-    var infoSongHtml = '<td><a href="#" class="infoSong"><img class="media-icon" src="/Content/images/information.png" alt="Info" /></</a><td>';
+function UpdateQueueList() {
+
+    baseUrl = $('#applicationUrl').val();
+
+    var deleteImageHtml = '<a href="#" class="deleteSong"><img class="media-icon" src="' + baseUrl + 'Content/images/delete-shred.png" alt="Delete" title="Remove song from queue." /></a>';
+    var infoSongHtml = '<td><a href="#" class="infoSong"><img class="media-icon" src="' + baseUrl + 'Content/images/information.png" alt="Info" /></</a><td>';
     var tableHtml = '';
 
     $.ajax({
-        url: '/Playback/GetCustomQueue',
+        url: baseUrl + 'Playback/GetCustomQueue',
         success: function (result) {
 
             var alternatedRow = false;
@@ -27,7 +31,7 @@
             });
 
             $.ajax({
-                url: '/Playback/GetLibraryQueue',
+                url: baseUrl + 'Playback/GetLibraryQueue',
                 success: function (result) {
                     $.each(result, function () {
                         if (alternatedRow) {

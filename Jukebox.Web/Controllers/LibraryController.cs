@@ -28,8 +28,6 @@ namespace Jukebox.Web.Controllers
         public void AddToLibrary(string query, int trackId)
         {
             _spotiFireService.AddTrackFromSearch(query, trackId);
-
-            _spotiFireService.EnqueueTrack(trackId);
         }
     }
 }

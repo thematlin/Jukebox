@@ -10,12 +10,13 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
         $('.AddToQueue').click(function () {
             var trackId = $(this).attr('id').split('_');
             var trackPosition = trackId[1];
 
             $.ajax({
-                url: '/Playback/PlayPlaylistTrack',
+                url: baseUrl + 'Playback/PlayPlaylistTrack',
                 data: { trackId: trackPosition },
                 success: function (result) {
                     UpdateQueueList();

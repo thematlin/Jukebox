@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Jukebox.Business.Models.Contracts
 {
-    public interface IJukeboxTrack
+    public interface IJukeboxTrack : IPersistable
     {
         string Name { get; set; }
 

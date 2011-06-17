@@ -9,6 +9,7 @@ namespace Jukebox.Infrastructure.Repositories
         T SingleOrDefault<T>(Func<T, bool> predicate) where T : IPersistable;
         IEnumerable<T> All<T>() where T : IPersistable;
         void Add<T>(T item) where T : IPersistable;
+        void AddRange<T>(IList<T> items) where T : IPersistable;
         void Delete<T>(T item) where T : IPersistable;
     }
 }

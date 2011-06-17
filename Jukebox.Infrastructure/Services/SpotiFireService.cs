@@ -10,37 +10,36 @@ namespace Jukebox.Infrastructure.Services
 {
     public class SpotiFireService : ISpotiFireService
     {
-        private SpotifyClient _spotiFire;
-        private IMapEngine _mapEngine;
-        private Playlist _spotiFirePlaylist;
+        private readonly SpotifyClient _spotiFire;
+        private readonly IMapEngine _mapEngine;
+        private readonly IPlaylistHolder _playlistHolder;
 
-        public SpotiFireService(IMapEngine mapEngine)
+        public SpotiFireService(IMapEngine mapEngine, IPlaylistHolder playlistHolder)
         {
             _mapEngine = mapEngine;
+            _playlistHolder = playlistHolder;
             _spotiFire = new SpotifyClient();
         }
 
         public IList<IJukeboxTrack> GetPlaylistTracks()
         {
-            var tracks = _spotiFire.GetPlaylistTracks(_spotiFirePlaylist.Id);
+            var tracks = _spotiFire.GetPlaylistTracks(_playlistHolder.ApplicationPlaylist.Id);
 
             return _mapEngine.MapSpotiFireTracksToJukeboxTracks(tracks);
         }
 
         public void EnqueueTrack(int trackId)
         {
-            _spotiFire.EnqueueTrack(_spotiFirePlaylist.Id, trackId);
+            _spotiFire.EnqueueTrack(_playlistHolder.ApplicationPlaylist.Id, trackId);
         }
 
         public void PlayPlaylistTrack(int trackId)
         {
-            _spotiFire.PlayPlaylistTrack(_spotiFirePlaylist.Id, trackId);
+            _spotiFire.PlayPlaylistTrack(_playlistHolder.ApplicationPlaylist.Id, trackId);
         }
 
         private Playlist GetPreConfiguredPlaylist()
         {
-            GuardLogIn();
-
             var playlists = _spotiFire.GetPlaylists();
 
             foreach (var playlist in playlists)
@@ -69,8 +68,10 @@ namespace Jukebox.Infrastructure.Services
 
         public void ConfigureSpotiFire()
         {
-            if (_spotiFirePlaylist == null)
-                _spotiFirePlaylist = GetPreConfiguredPlaylist();
+            GuardLogIn();
+
+            if (_playlistHolder.ApplicationPlaylist == null)
+                _playlistHolder.ApplicationPlaylist = GetPreConfiguredPlaylist();
         }
 
         public ReadOnlyCollection<IJukeboxTrack> GetLibraryQueue()
@@ -89,17 +90,17 @@ namespace Jukebox.Infrastructure.Services
 
         public void PlayNext()
         {
-            _spotiFire.PlayNext(_spotiFirePlaylist.Id);
+            _spotiFire.PlayNext(_playlistHolder.ApplicationPlaylist.Id);
         }
 
         public void Play()
         {
-            _spotiFire.PlayPause(_spotiFirePlaylist.Id);
+            _spotiFire.PlayPause(_playlistHolder.ApplicationPlaylist.Id);
         }
 
         public void Pause()
         {
-            _spotiFire.PlayPause(_spotiFirePlaylist.Id);
+            _spotiFire.PlayPause(_playlistHolder.ApplicationPlaylist.Id);
         }
 
         public IJukeboxTrack GetCurrentTrack()
@@ -118,7 +119,7 @@ namespace Jukebox.Infrastructure.Services
 
         public void AddTrackFromSearch(string query, int trackId)
         {
-            _spotiFire.AddTrackFromSearchToPlaylist(_spotiFirePlaylist.Id, query, trackId);
+            _spotiFire.AddTrackFromSearchToPlaylist(_playlistHolder.ApplicationPlaylist.Id, query, trackId);
         }
     }
 }

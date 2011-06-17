@@ -16,5 +16,6 @@ namespace Jukebox.Infrastructure.Services
         IJukeboxTrack GetCurrentTrack();
         IJukeboxSearch Search(string query);
         void AddTrackFromSearch(string query, int trackId);
+        void ConfigureSpotiFire();
     }
 }

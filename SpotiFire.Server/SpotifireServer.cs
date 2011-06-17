@@ -72,6 +72,7 @@ namespace SpotiFire.Server
 
         void spotify_EndOfTrack(ISession sender, SessionEventArgs e)
         {
+            Console.WriteLine("End Of a track");
             if (playQueue.Count > 0)
             {
                 var track = playQueue.Dequeue();
@@ -141,13 +142,14 @@ namespace SpotiFire.Server
 
         public IEnumerable<Track> GetPlaylistTracks(Guid id)
         {
+            Console.WriteLine("GetPlaylistTracks");
             Playlist playlist = Playlist.GetById(id);
             return playlist.playlist.Tracks.Select(t => new Track(t)).ToArray();
         }
 
         public void PlayPlaylistTrack(Guid playlistId, int position)
         {
-
+            
             var track = GetTrack(playlistId, position);
 
             if (position != -1)
@@ -161,6 +163,7 @@ namespace SpotiFire.Server
                 playQueue.Current = playlist.playlist.Tracks[position];
             spotify.PlayerPlay();
             playing = true;
+            Console.WriteLine("PlayPlaylistTrack: " + track.Name);
         }
 
         private IPlaylistTrack GetTrack(Guid playlistId, int position)
@@ -204,6 +207,7 @@ namespace SpotiFire.Server
 
         public void PlayPause(Guid playlistId)
         {
+            Console.WriteLine("PlayPause");
             if (playing)
             {
                 spotify.PlayerPause();
@@ -272,6 +276,8 @@ namespace SpotiFire.Server
 
         public void EnqueueTrack(Guid playlistId, int position)
         {
+            Console.WriteLine("Enqueue");
+
             var track = GetTrack(playlistId, position);
 
             if (playQueue.Current == null)
@@ -292,6 +298,7 @@ namespace SpotiFire.Server
 
         public void PlayNext(Guid playlistId)
         {
+            Console.WriteLine("PlayNExt");
             if (playQueue.Current == null || playQueue.Count < 1)
             {
                 var rand = new Random();
@@ -320,16 +327,20 @@ namespace SpotiFire.Server
 
         public IEnumerable<Track> GetQueue()
         {
+            Console.WriteLine("GetQueue");
+
             return playQueue.Queue.Select(t => new Track(t)).ToArray();
         }
 
         public IEnumerable<Track> GetCustomQueue()
         {
+            Console.WriteLine("GetCustomQueue");
             return playQueue.CustomQueue.Select(t => new Track(t)).ToArray();
         }
 
         public Search Search(string query)
         {
+            Console.WriteLine("Search");
             var search = spotify.Search(query, 0, 100, 0, 100, 0, 100);
 
             while (search.Error == sp_error.IS_LOADING)
@@ -342,6 +353,7 @@ namespace SpotiFire.Server
 
         public void AddTrackFromSearchToPlaylist(Guid playlistId, string query, int trackPosition)
         {
+            Console.WriteLine("AddTrackFromSearch");
             var search = spotify.Search(query, 0, 100, 0, 100, 0, 100);
 
             while (search.Error == sp_error.IS_LOADING)
@@ -360,7 +372,9 @@ namespace SpotiFire.Server
 
         void playlist_TracksAdded(IPlaylist playlist, TracksAddedEventArgs args)
         {
-            
+            //var playlistId = GetPlaylists().SingleOrDefault(x => x.Name.Equals(playlist.Name)).Id;
+
+            //EnqueueTrack(playlistId, args.TrackIndices[0]);
         }
     }
 }

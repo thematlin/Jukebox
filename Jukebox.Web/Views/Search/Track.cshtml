@@ -6,8 +6,6 @@
 @using(Html.BeginForm("Track", "Search", FormMethod.Post)) {
     <div class="search">
         
-        <p>Adding a track to Library will also queue it!</p>
-
         @Html.Search("query", new { placeholder = "Search Spotify" })
     
         <input type="submit" value="Search" />
@@ -48,11 +46,9 @@
             var trackId = $(this).attr('id').split('_');
             var trackPosition = trackId[1];
             var query = $('#searchedQuery').val();
-            alert(trackId);
-            alert(query);
 
             $.ajax({
-                url: '/Library/AddToLibrary',
+                url: baseUrl + 'Library/AddToLibrary',
                 data: { query: query, trackId: trackPosition },
                 success: function () {
                     UpdateQueueList();
