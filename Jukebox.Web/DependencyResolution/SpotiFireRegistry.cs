@@ -13,8 +13,7 @@ namespace Jukebox.Web.DependencyResolution
         {
             var pg = new ProxyGenerator();
 
-            //For<ISpotiFireService>().EnrichAllWith((context, z) => pg.CreateInterfaceProxyWithTarget(z, new SpotiFireServiceInterceptor(context.GetInstance<ILibraryValidator>()))).OnCreationForAll((context, x) => x.ConfigureSpotiFire());
-            For<ISpotiFireService>().Use<SpotiFireService>().OnCreation(x => x.ConfigureSpotiFire());
+            For<ISpotiFireService>().EnrichAllWith((context, z) => pg.CreateInterfaceProxyWithTarget(z, new SpotiFireServiceInterceptor(context.GetInstance<ILibraryValidator>()))).OnCreationForAll((context, x) => x.ConfigureSpotiFire());
         }
     }
 }

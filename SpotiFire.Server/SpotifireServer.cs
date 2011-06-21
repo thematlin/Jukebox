@@ -372,9 +372,9 @@ namespace SpotiFire.Server
 
         void playlist_TracksAdded(IPlaylist playlist, TracksAddedEventArgs args)
         {
-            //var playlistId = GetPlaylists().SingleOrDefault(x => x.Name.Equals(playlist.Name)).Id;
+            var playlistId = GetPlaylists().SingleOrDefault(x => x.Name.Equals(playlist.Name)).Id;
 
-            //EnqueueTrack(playlistId, args.TrackIndices[0]);
+            EnqueueTrack(playlistId, args.TrackIndices[0]);
         }
     }
 }
