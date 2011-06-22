@@ -76,7 +76,7 @@ namespace SpotiFire.Server
             {
                 // Add Service Endpoint
                 host.AddServiceEndpoint(typeof(ISpotifireServer), new NetTcpContextBinding(SecurityMode.Transport, true), baseAddress);
-
+                
 #if DEBUG
                 // Enable metadata exchange
                 ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
