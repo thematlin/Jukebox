@@ -1,10 +1,8 @@
-﻿using Jukebox.Business.Models.Contracts;
-
-namespace Jukebox.Business.Models
+﻿namespace Jukebox.Business.Models
 {
-    public class JukeboxAlbum : IJukeboxAlbum
+    public class JukeboxAlbum
     {
-        public IJukeboxArtist Artist { get; set; }
+        public JukeboxArtist Artist { get; set; }
 
         public string CoverId { get; set; }
 

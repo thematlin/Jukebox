@@ -1,8 +1,6 @@
-﻿using Jukebox.Business.Models.Contracts;
-
-namespace Jukebox.Business.Models
+﻿namespace Jukebox.Business.Models
 {
-    public class JukeboxArtist : IJukeboxArtist
+    public class JukeboxArtist
     {
         public string Name { get; set; }
 

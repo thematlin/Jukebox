@@ -40,12 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Contracts\IJukeboxAlbum.cs" />
-    <Compile Include="Models\Contracts\IJukeboxArtist.cs" />
-    <Compile Include="Models\Contracts\IJukeboxPlaylist.cs" />
-    <Compile Include="Models\Contracts\IJukeboxSearch.cs" />
-    <Compile Include="Models\Contracts\IJukeboxTrack.cs" />
-    <Compile Include="Models\Contracts\IPersistable.cs" />
     <Compile Include="Models\JukeboxAlbum.cs" />
     <Compile Include="Models\JukeboxArtist.cs" />
     <Compile Include="Models\JukeboxPlaylist.cs" />

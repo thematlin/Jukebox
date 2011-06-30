@@ -1,9 +1,8 @@
 ﻿using System;
-using Jukebox.Business.Models.Contracts;
 
 namespace Jukebox.Business.Models
 {
-    public class JukeboxPlaylist : IJukeboxPlaylist
+    public class JukeboxPlaylist
     {
         public string Description { get; set; }
 
