@@ -1,9 +1,7 @@
 ﻿using System.Diagnostics;
-using Raven.Abstractions.Indexing;
 using Raven.Client.Document;
-using Jukebox.Business.Models;
 
-namespace Jukebox.Infrastructure.Repositories.Ravendb
+namespace Jukebox.Infrastructure.Repositories.RavendbSessionManagement
 {
     public class RavenSessionFactoryBuilder : IRavenSessionFactoryBuilder
     {

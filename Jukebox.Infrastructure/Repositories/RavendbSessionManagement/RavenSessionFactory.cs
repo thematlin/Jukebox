@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Raven.Client;
 
-namespace Jukebox.Infrastructure.Repositories.Ravendb
+namespace Jukebox.Infrastructure.Repositories.RavendbSessionManagement
 {
     public class RavenSessionFactory : IRavenSessionFactory
     {

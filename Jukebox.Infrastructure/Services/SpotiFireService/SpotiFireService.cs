@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
-using Jukebox.Business.Models.Contracts;
+using Jukebox.Business.Models;
 using Jukebox.Infrastructure.ObjectMapper;
 using Jukebox.Infrastructure.SpotiFireServer;
 
-namespace Jukebox.Infrastructure.Services
+namespace Jukebox.Infrastructure.Services.SpotiFireService
 {
     public class SpotiFireService : ISpotiFireService
     {
@@ -21,7 +21,7 @@ namespace Jukebox.Infrastructure.Services
             _spotiFire = new SpotifyClient();
         }
 
-        public IList<IJukeboxTrack> GetPlaylistTracks()
+        public IList<JukeboxTrack> GetPlaylistTracks()
         {
             var tracks = _spotiFire.GetPlaylistTracks(_playlistHolder.ApplicationPlaylist.Id);
 
@@ -74,14 +74,19 @@ namespace Jukebox.Infrastructure.Services
                 _playlistHolder.ApplicationPlaylist = GetPreConfiguredPlaylist();
         }
 
-        public ReadOnlyCollection<IJukeboxTrack> GetLibraryQueue()
+        public JukeboxTrack PlaySearchedTrack(string query, string trackId)
+        {
+            return _mapEngine.MapSpotiFireTrackToJukeboxTrack(_spotiFire.PlaySearchedTrack(_playlistHolder.ApplicationPlaylist.Id, query, trackId));
+        }
+
+        public ReadOnlyCollection<JukeboxTrack> GetLibraryQueue()
         {
             var spotiFireCustomQueue = _spotiFire.GetQueue();
 
             return _mapEngine.MapSpotiFireQueueToJukeboxQueue(spotiFireCustomQueue);
         }
 
-        public ReadOnlyCollection<IJukeboxTrack> GetCustomQueue()
+        public ReadOnlyCollection<JukeboxTrack> GetCustomQueue()
         {
             var spotiFireCustomQueue = _spotiFire.GetCustomQueue();
 
@@ -103,21 +108,21 @@ namespace Jukebox.Infrastructure.Services
             _spotiFire.PlayPause(_playlistHolder.ApplicationPlaylist.Id);
         }
 
-        public IJukeboxTrack GetCurrentTrack()
+        public JukeboxTrack GetCurrentTrack()
         {
             var track = _spotiFire.GetCurrentTrack();
 
             return _mapEngine.MapSpotiFireTrackToJukeboxTrack(track);
         }
 
-        public IJukeboxSearch Search(string query)
+        public JukeboxSearch Search(string query)
         {
             var search = _spotiFire.Search(query);
 
             return _mapEngine.MapSpotiFireSearchToJukeboxSearch(search);
         }
 
-        public void AddTrackFromSearch(string query, int trackId)
+        public void AddTrackFromSearch(string query, string trackId)
         {
             _spotiFire.AddTrackFromSearchToPlaylist(_playlistHolder.ApplicationPlaylist.Id, query, trackId);
         }

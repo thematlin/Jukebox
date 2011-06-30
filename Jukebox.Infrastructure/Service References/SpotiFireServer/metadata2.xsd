@@ -180,7 +180,23 @@
       <xs:sequence>
         <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playlistId" type="q14:guid" />
         <xs:element minOccurs="0" name="query" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="trackPosition" type="xs:int" />
+        <xs:element minOccurs="0" name="trackId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PlaySearchedTrack">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="playlistId" type="q15:guid" />
+        <xs:element minOccurs="0" name="query" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="trackId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PlaySearchedTrackResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/SpotiFire.Server" minOccurs="0" name="PlaySearchedTrackResult" nillable="true" type="q16:Track" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -1,36 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Jukebox.Business;
 using Jukebox.Business.Models;
-using Jukebox.Business.Models.Contracts;
 using Jukebox.Infrastructure.SpotiFireServer;
 
 namespace Jukebox.Infrastructure.ObjectMapper
 {
     public class MapEngine : IMapEngine
     {
-        public IList<IJukeboxTrack> MapSpotiFireTracksToJukeboxTracks(Track[] tracks)
+        public IList<JukeboxTrack> MapSpotiFireTracksToJukeboxTracks(Track[] tracks)
         {
-            var jukeboxTracks = new List<IJukeboxTrack>();
+            var jukeboxTracks = new List<JukeboxTrack>();
 
-            var trackCount = 0;
             foreach (var track in tracks)
             {
                 var jukeTrack = MapSpotiFireTrackToJukeboxTrack(track);
-                jukeTrack.PlaylistPosition = trackCount;
 
                 jukeboxTracks.Add(jukeTrack);
-
-                trackCount++;
             }
 
             return jukeboxTracks;
         }
 
-        public ReadOnlyCollection<IJukeboxTrack> MapSpotiFireQueueToJukeboxQueue(Track[] tracks)
+        public ReadOnlyCollection<JukeboxTrack> MapSpotiFireQueueToJukeboxQueue(Track[] tracks)
         {
-            var jukeboxTracks = new List<IJukeboxTrack>();
+            var jukeboxTracks = new List<JukeboxTrack>();
 
             var trackCount = 0;
             foreach (var track in tracks)
@@ -43,18 +36,21 @@ namespace Jukebox.Infrastructure.ObjectMapper
                 trackCount++;
             }
 
-            var readOnlyCollection = new ReadOnlyCollection<IJukeboxTrack>(jukeboxTracks);
+            var readOnlyCollection = new ReadOnlyCollection<JukeboxTrack>(jukeboxTracks);
 
             return readOnlyCollection;
         }
 
-        public IJukeboxTrack MapSpotiFireTrackToJukeboxTrack(Track track)
+        public JukeboxTrack MapSpotiFireTrackToJukeboxTrack(Track track)
         {
             if (track == null)
                 return null;
 
             var jukeboxTrack = new JukeboxTrack();
 
+            jukeboxTrack.Id = track.Id;
+            jukeboxTrack.PlaylistPosition = track.PlaylistPosition;
+            jukeboxTrack.ArtistsAndName = track.ArtistAndName;
             jukeboxTrack.Name = track.Name;
             jukeboxTrack.Length = track.Length;
             jukeboxTrack.Album = track.Album;
@@ -63,7 +59,7 @@ namespace Jukebox.Infrastructure.ObjectMapper
             return jukeboxTrack;
         }
 
-        public IJukeboxSearch MapSpotiFireSearchToJukeboxSearch(Search search)
+        public JukeboxSearch MapSpotiFireSearchToJukeboxSearch(Search search)
         {
             var jukeSearch = new JukeboxSearch();
 
@@ -79,9 +75,9 @@ namespace Jukebox.Infrastructure.ObjectMapper
             return jukeSearch;
         }
 
-        private IList<IJukeboxAlbum> MapSpotiFireAlbumsToJukeboxAlbums(Album[] albums)
+        private IList<JukeboxAlbum> MapSpotiFireAlbumsToJukeboxAlbums(Album[] albums)
         {
-            var jukeAlbums = new List<IJukeboxAlbum>();
+            var jukeAlbums = new List<JukeboxAlbum>();
 
             foreach (var album in albums)
             {
@@ -91,7 +87,7 @@ namespace Jukebox.Infrastructure.ObjectMapper
             return jukeAlbums;
         }
 
-        private IJukeboxAlbum MapSpotiFireAlbumToJukeboxAlbum(Album album)
+        private JukeboxAlbum MapSpotiFireAlbumToJukeboxAlbum(Album album)
         {
             var jukeAlbum = new JukeboxAlbum();
 
@@ -116,9 +112,9 @@ namespace Jukebox.Infrastructure.ObjectMapper
             return AlbumType.Unknown;
         }
 
-        private IList<IJukeboxArtist> MapSpotiFireArtistsToJukeboxArtists(Artist[] artists)
+        private IList<JukeboxArtist> MapSpotiFireArtistsToJukeboxArtists(Artist[] artists)
         {
-            var jukeboxArtists = new List<IJukeboxArtist>();
+            var jukeboxArtists = new List<JukeboxArtist>();
 
             foreach (var artist in artists)
             {
@@ -128,7 +124,7 @@ namespace Jukebox.Infrastructure.ObjectMapper
             return jukeboxArtists;
         }
 
-        private IJukeboxArtist MapSpotiFireArtistToJukeboxArtist(Artist artist)
+        private JukeboxArtist MapSpotiFireArtistToJukeboxArtist(Artist artist)
         {
             var jukeboxArtist = new JukeboxArtist();
 

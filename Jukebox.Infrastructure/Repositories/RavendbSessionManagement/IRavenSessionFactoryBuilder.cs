@@ -1,4 +1,4 @@
-﻿namespace Jukebox.Infrastructure.Repositories.Ravendb
+﻿namespace Jukebox.Infrastructure.Repositories.RavendbSessionManagement
 {
     public interface IRavenSessionFactoryBuilder
     {
