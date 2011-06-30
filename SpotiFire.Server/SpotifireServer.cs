@@ -177,7 +177,12 @@ namespace SpotiFire.Server
             return track;
         }
 
+        public ITrack GetTrack(Guid playlistId, string id)
+        {
+            var playlist = Playlist.GetById(playlistId);
 
+            return playlist.playlist.Tracks.FirstOrDefault(itrack => new Track(itrack).Id == id);
+        }
 
         public void SetShuffle(bool shuffle)
         {
@@ -292,6 +297,38 @@ namespace SpotiFire.Server
             }
             else
             {
+                var lastAdded = playQueue.Last();
+                var wrappedtrack = new Track(lastAdded);
+                Console.WriteLine("Enqueue info:");
+                Console.WriteLine("last track in queue: " + wrappedtrack.Name);
+                Console.WriteLine("adding track: " + track.Name);
+                playQueue.Enqueue(track);
+            }
+        }
+
+        public void EnqueueTrack(Guid playlistId, string trackId)
+        {
+            Console.WriteLine("Enqueue by trackId");
+
+            var track = GetTrack(playlistId, trackId);
+
+            if (playQueue.Current == null)
+            {
+                playQueue.Feed = playlist.playlist.Tracks.Cast<ITrack>();
+                spotify.PlayerLoad(track);
+                playQueue.Index = track.Index;
+                playQueue.Current = track;
+
+                spotify.PlayerPlay();
+                playing = true;
+            }
+            else
+            {
+                var lastAdded = playQueue.Last();
+                var wrappedtrack = new Track(lastAdded);
+                Console.WriteLine("Enqueue info:");
+                Console.WriteLine("last track in queue: " + wrappedtrack.Name);
+                Console.WriteLine("adding track: " + track.Name);
                 playQueue.Enqueue(track);
             }
         }
@@ -351,9 +388,14 @@ namespace SpotiFire.Server
             return new Search(search);
         }
 
-        public void AddTrackFromSearchToPlaylist(Guid playlistId, string query, int trackPosition)
+        public void AddTrackFromSearchToPlaylist(Guid playlistId, string query, string trackId)
         {
             Console.WriteLine("AddTrackFromSearch");
+            SearchAndAddTrack(query, trackId, playlistId);
+        }
+
+        private Track SearchAndAddTrack(string query, string trackId, Guid playlistId)
+        {
             var search = spotify.Search(query, 0, 100, 0, 100, 0, 100);
 
             while (search.Error == sp_error.IS_LOADING)
@@ -362,19 +404,22 @@ namespace SpotiFire.Server
             }
 
             var playlistTracks = search.Tracks;
-            var trackToAdd = playlistTracks[trackPosition];
+            var trackToAdd = playlistTracks.Single(x => new Track(x).Id == trackId);
 
             var thePlaylist = Playlist.GetById(playlistId);
-            thePlaylist.playlist.TracksAdded += new PlaylistEventHandler<TracksAddedEventArgs>(playlist_TracksAdded);
             
             thePlaylist.playlist.Tracks.Add(trackToAdd, trackToAdd.Index);
+
+            var track = new Track(trackToAdd);
+
+            EnqueueTrack(playlistId, track.Id);
+
+            return track;
         }
 
-        void playlist_TracksAdded(IPlaylist playlist, TracksAddedEventArgs args)
+        public Track PlaySearchedTrack(Guid playlistId, string query, string trackId)
         {
-            var playlistId = GetPlaylists().SingleOrDefault(x => x.Name.Equals(playlist.Name)).Id;
-
-            EnqueueTrack(playlistId, args.TrackIndices[0]);
+            return SearchAndAddTrack(query, trackId, playlistId);
         }
     }
 }

@@ -68,6 +68,9 @@ namespace SpotiFire.Server
         Search Search(string query);
 
         [OperationContract(IsOneWay = true, IsInitiating = false)]
-        void AddTrackFromSearchToPlaylist(Guid playlistId, string query, int trackPosition);
+        void AddTrackFromSearchToPlaylist(Guid playlistId, string query, string trackId);
+
+        [OperationContract(IsOneWay = false, IsInitiating = false)]
+        Track PlaySearchedTrack(Guid playlistId, string query, string trackId);
     }
 }

@@ -1,11 +1,11 @@
 ﻿@using Jukebox.Web.ExtensionMethods
-@using Jukebox.Business.Models.Contracts
+@using Jukebox.Business.Models
 
 <a href="#" id="ShowAllSongs">Show all songs</a> | <a href="#" id="ShowSongsByArtis">Show songs by Artists</a> | <a href="#" id="ShowSongsByAlbum">Show songs by Album</a><br /><br />
 
 <h2>Show all songs</h2>
 
-@Html.LibraryTable(ViewBag.Tracks as IList<IJukeboxTrack>)
+@Html.LibraryTable(ViewBag.Tracks as IList<JukeboxTrack>)
 
 <script type="text/javascript">
 

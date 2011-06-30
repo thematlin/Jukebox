@@ -18,7 +18,25 @@ namespace SpotiFire.Server
             IsAvailable = track.IsAvailable;
             Popularity = track.Popularity;
             IsStarred = track.IsStarred;
+            PlaylistPosition = track.Index;
         }
+
+        [DataMember]
+        public string Id
+        {
+            get
+            {
+                var uniqueHash = ArtistAndName + Album;
+
+                var hashish = uniqueHash.GetHashCode();
+                hashish = Math.Abs(hashish) * 1;
+                return hashish.ToString();
+            }
+            internal set { if (value == null) throw new ArgumentNullException("value"); }
+        }
+
+        [DataMember]
+        public int PlaylistPosition { get; set; }
 
         [DataMember]
         public string Name { get; set; }
@@ -40,5 +58,30 @@ namespace SpotiFire.Server
 
         [DataMember]
         public bool IsStarred { get; set; }
+
+        [DataMember]
+        public string ArtistAndName 
+        { 
+            get
+            {
+                var artists = "";
+
+                if (Artists.Count().Equals(1))
+                    return Artists[0].Name + " - " + Name;
+
+                foreach (var artist in Artists)
+                {
+                    if (Name.Contains(artist.Name))
+                        continue;
+
+                    artists += artist.Name + ", ";
+                }
+
+                artists = artists.TrimEnd(new[] { ',', ' ' });
+
+                return artists + " - " + Name;
+            } 
+            internal set { if (value == null) throw new ArgumentNullException("value"); }
+        }
     }
 }

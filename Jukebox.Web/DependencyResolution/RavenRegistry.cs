@@ -1,6 +1,5 @@
-﻿using Jukebox.Infrastructure.Repositories.Ravendb;
+﻿using Jukebox.Infrastructure.Repositories.RavendbSessionManagement;
 using Raven.Client;
-using StructureMap;
 using StructureMap.Configuration.DSL;
 
 namespace Jukebox.Web.DependencyResolution

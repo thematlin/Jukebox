@@ -1,11 +1,11 @@
+using Jukebox.Infrastructure.Repositories.RavendbSessionManagement;
 using Jukebox.Infrastructure.Security;
+using Jukebox.Infrastructure.Services.SpotiFireService;
 using Jukebox.Web.DependencyResolution;
 using StructureMap;
-using Jukebox.Infrastructure.Repositories.Ravendb;
 using Jukebox.Infrastructure.Membership;
 using Jukebox.Web.Code;
 using DotNetOpenAuth.OAuth.ChannelElements;
-using Jukebox.Infrastructure.Services;
 
 namespace Jukebox.Web {
     public static class IoC {
@@ -36,7 +36,6 @@ namespace Jukebox.Web {
                             x.For<IPlaylistHolder>().Singleton().Use<PlaylistHolder>();
                             x.AddRegistry(new SpotiFireRegistry());
                             x.AddRegistry(new RavenRegistry());
-                            x.AddRegistry(new ValidatorsRegistry());
                         });
 
             ObjectFactory.AssertConfigurationIsValid();

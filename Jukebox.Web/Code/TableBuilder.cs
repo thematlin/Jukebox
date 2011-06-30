@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Jukebox.Business.Models.Contracts;
-using System.Web.Mvc;
 using System.Web;
+using Jukebox.Business.Models;
+
 namespace Jukebox.Web.Code
 {
     public static class TableBuilder
     {
-        public static string TrackTableBuilder(IList<IJukeboxTrack> tracks, TrackTableKind kind)
+        public static string TrackTableBuilder(IList<JukeboxTrack> tracks, TrackTableKind kind)
         {
             var table = new StringBuilder();
 
@@ -68,7 +68,7 @@ namespace Jukebox.Web.Code
             return table.ToString();
         }
 
-        private static string AddNewColumns(IJukeboxTrack track, bool lastColumnOfTable, int columnsAdded, TrackTableKind kind)
+        private static string AddNewColumns(JukeboxTrack track, bool lastColumnOfTable, int columnsAdded, TrackTableKind kind)
         {
             var columnPart = new StringBuilder();
 

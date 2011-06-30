@@ -26,7 +26,7 @@ namespace Jukebox.Web
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{*id}", // URL with parameters
-                new { controller = "Library", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Jukebox", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
         }

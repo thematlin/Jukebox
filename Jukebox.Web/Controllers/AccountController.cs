@@ -3,13 +3,13 @@ using System.Web.Mvc;
 using DotNetOpenAuth.OAuth;
 using Jukebox.Business.Models;
 using Jukebox.Infrastructure.Membership;
-using Jukebox.Infrastructure.Repositories;
 using DotNetOpenAuth.OpenId.RelyingParty;
 using DotNetOpenAuth.OAuth.ChannelElements;
 using DotNetOpenAuth.OpenId;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 using DotNetOpenAuth.ApplicationBlock;
+using Jukebox.Infrastructure.Repositories.RavenBaseRepo;
 
 namespace Jukebox.Web.Controllers
 {
@@ -19,12 +19,12 @@ namespace Jukebox.Web.Controllers
 
         private readonly IFormsAuthentication _formsAuth;
         private readonly IConsumerTokenManager _consumerTokenManager;
-        private readonly IRavenRepository _ravenRepository;
+        private readonly IRavendbRepository<User> _ravendbRepository;
 
-        public AccountController(IFormsAuthentication formsAuth, IConsumerTokenManager consumerTokenManager, IRavenRepository ravenRepository)
+        public AccountController(IFormsAuthentication formsAuth, IConsumerTokenManager consumerTokenManager, IRavendbRepository<User> ravendbRepository)
         {
             _formsAuth = formsAuth;
-            _ravenRepository = ravenRepository;
+            _ravendbRepository = ravendbRepository;
             _consumerTokenManager = consumerTokenManager;
         }
 
@@ -110,7 +110,7 @@ namespace Jukebox.Web.Controllers
 
         private ActionResult CreateUser(string username, string firstName, string lastName, string email)
         {
-            var user = _ravenRepository.SingleOrDefault<User>(x => x.UserName.Equals(username));
+            var user = _ravendbRepository.SingleOrDefault(x => x.UserName.Equals(username));
 
             if (user == null)
             {
@@ -133,9 +133,9 @@ namespace Jukebox.Web.Controllers
         [HttpPost]
         public ActionResult Create(User user)
         {
-            if (_ravenRepository.SingleOrDefault<User>(x => x.UserName.Equals(user.UserName)) == null)
+            if (_ravendbRepository.SingleOrDefault(x => x.UserName.Equals(user.UserName)) == null)
             {
-                _ravenRepository.Add(user);
+                _ravendbRepository.Add(user);
             }
 
             _formsAuth.SignIn(user.UserName, false);

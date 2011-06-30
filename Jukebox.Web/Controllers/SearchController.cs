@@ -5,11 +5,11 @@ namespace Jukebox.Web.Controllers
 {
     public class SearchController : Controller
     {
-        private ISpotiFireService _spotiFireService;
+        private readonly IJukeboxService _jukeboxService;
 
-        public SearchController(ISpotiFireService spotiFireService)
+        public SearchController(IJukeboxService jukeboxService)
         {
-            _spotiFireService = spotiFireService;
+            _jukeboxService = jukeboxService;
         }
 
         public ActionResult Track()
@@ -20,11 +20,11 @@ namespace Jukebox.Web.Controllers
         [HttpPost]
         public ActionResult Track(string query)
         {
-            var search = _spotiFireService.Search(query);
+            var search = _jukeboxService.Search(query);
 
-            ViewBag.Search = search;
+            TempData.Add("Search", search);
 
-            return View();
+            return RedirectToAction("Index", "Jukebox");
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using Jukebox.Infrastructure.Services;
+﻿using Jukebox.Infrastructure.Services.SpotiFireService;
 using StructureMap.Configuration.DSL;
-using Castle.DynamicProxy;
-using Jukebox.Infrastructure.Interceptors;
-using Jukebox.Infrastructure.Validators;
 
 namespace Jukebox.Web.DependencyResolution
 {
@@ -10,9 +7,7 @@ namespace Jukebox.Web.DependencyResolution
     {
         public SpotiFireRegistry()
         {
-            var pg = new ProxyGenerator();
-
-            For<ISpotiFireService>().EnrichAllWith((context, z) => pg.CreateInterfaceProxyWithTarget(z, new SpotiFireServiceInterceptor(context.GetInstance<ILibraryValidator>()))).OnCreationForAll((context, x) => x.ConfigureSpotiFire());
+            For<ISpotiFireService>().HybridHttpOrThreadLocalScoped().Use<SpotiFireService>().OnCreation(x => x.ConfigureSpotiFire());
         }
     }
 }

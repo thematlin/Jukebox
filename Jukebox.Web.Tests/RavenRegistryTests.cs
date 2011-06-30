@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Jukebox.Infrastructure.Repositories.RavendbSessionManagement;
+using NUnit.Framework;
 using StructureMap;
 using Jukebox.Web.DependencyResolution;
-using Jukebox.Infrastructure.Repositories.Ravendb;
 using Raven.Client;
 using FakeItEasy;
 

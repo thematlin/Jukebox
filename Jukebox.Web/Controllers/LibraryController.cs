@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Jukebox.Infrastructure.Services;
-using Jukebox.Infrastructure.Repositories;
+using Jukebox.Infrastructure.Services.SpotiFireService;
 
 namespace Jukebox.Web.Controllers
 {
@@ -25,7 +24,7 @@ namespace Jukebox.Web.Controllers
             return View();
         }
 
-        public void AddToLibrary(string query, int trackId)
+        public void AddToLibrary(string query, string trackId)
         {
             _spotiFireService.AddTrackFromSearch(query, trackId);
         }
