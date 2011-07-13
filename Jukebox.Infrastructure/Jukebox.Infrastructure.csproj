@@ -101,12 +101,10 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Services\ISpotiFireService.cs" />
-    <Compile Include="Services\ISpotiFireSession.cs" />
     <Compile Include="Services\PersistenceServices\ILibraryPersistenceService.cs" />
     <Compile Include="Services\PersistenceServices\LibraryPersistenceService.cs" />
     <Compile Include="Services\PlaylistHolder.cs" />
     <Compile Include="Services\SpotiFireService.cs" />
-    <Compile Include="Services\SpotiFireSession.cs" />
     <Compile Include="Validators\ILibraryValidator.cs" />
     <Compile Include="Validators\LibraryValidator.cs" />
   </ItemGroup>

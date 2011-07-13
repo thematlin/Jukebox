@@ -1,9 +1,6 @@
-﻿using Jukebox.Infrastructure;
-using Jukebox.Infrastructure.Services;
+﻿using Jukebox.Infrastructure.Services;
 using StructureMap.Configuration.DSL;
 using Castle.DynamicProxy;
-using Jukebox.Infrastructure.Interceptors;
-using Jukebox.Infrastructure.Validators;
 
 namespace Jukebox.Web.DependencyResolution
 {
