@@ -26,7 +26,7 @@ namespace Jukebox.Infrastructure.Services
             return _spotiFireService.Search(query);
         }
 
-        public void PlayTrack(string query, int trackPosition, string trackId)
+        public void PlayTrack(string query, string trackId)
         {
             var track = _trackRepository.GetTrackById(trackId);
             
@@ -37,7 +37,7 @@ namespace Jukebox.Infrastructure.Services
             }
             else
             {
-                _spotiFireService.EnqueueTrack(track.PlaylistPosition);
+                //_spotiFireService.EnqueueTrack(track.;
             }
         }
     }

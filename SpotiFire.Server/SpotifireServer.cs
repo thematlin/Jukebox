@@ -180,8 +180,19 @@ namespace SpotiFire.Server
         public ITrack GetTrack(Guid playlistId, string id)
         {
             var playlist = Playlist.GetById(playlistId);
+            this.playlist = playlist;
 
             return playlist.playlist.Tracks.FirstOrDefault(itrack => new Track(itrack).Id == id);
+        }
+
+        public int GetTrackPlaylistPosition(string id)
+        {
+            return playlist.playlist.Tracks.IndexOf(GetPlaylistTrack(id));
+        }
+
+        public IPlaylistTrack GetPlaylistTrack(string id)
+        {
+            return playlist.playlist.Tracks.FirstOrDefault(track => new Track(track).Id == id);
         }
 
         public void SetShuffle(bool shuffle)
@@ -297,10 +308,10 @@ namespace SpotiFire.Server
             }
             else
             {
-                var lastAdded = playQueue.Last();
-                var wrappedtrack = new Track(lastAdded);
+                //var lastAdded = playQueue.Last();
+                //var wrappedtrack = new Track(lastAdded);
                 Console.WriteLine("Enqueue info:");
-                Console.WriteLine("last track in queue: " + wrappedtrack.Name);
+                //Console.WriteLine("last track in queue: " + wrappedtrack.Name);
                 Console.WriteLine("adding track: " + track.Name);
                 playQueue.Enqueue(track);
             }
@@ -312,11 +323,14 @@ namespace SpotiFire.Server
 
             var track = GetTrack(playlistId, trackId);
 
+            if (track == null)
+                return;
+
             if (playQueue.Current == null)
             {
                 playQueue.Feed = playlist.playlist.Tracks.Cast<ITrack>();
                 spotify.PlayerLoad(track);
-                playQueue.Index = track.Index;
+                playQueue.Index = GetTrackPlaylistPosition(trackId);
                 playQueue.Current = track;
 
                 spotify.PlayerPlay();
@@ -324,10 +338,10 @@ namespace SpotiFire.Server
             }
             else
             {
-                var lastAdded = playQueue.Last();
-                var wrappedtrack = new Track(lastAdded);
+                //var lastAdded = playQueue.Last();
+                //var wrappedtrack = new Track(lastAdded);
                 Console.WriteLine("Enqueue info:");
-                Console.WriteLine("last track in queue: " + wrappedtrack.Name);
+                //Console.WriteLine("last track in queue: " + wrappedtrack.Name);
                 Console.WriteLine("adding track: " + track.Name);
                 playQueue.Enqueue(track);
             }
@@ -404,11 +418,15 @@ namespace SpotiFire.Server
             }
 
             var playlistTracks = search.Tracks;
-            var trackToAdd = playlistTracks.Single(x => new Track(x).Id == trackId);
+
+            var trackToAdd = playlistTracks.Where(x => new Track(x).Id == trackId).FirstOrDefault();
 
             var thePlaylist = Playlist.GetById(playlistId);
-            
-            thePlaylist.playlist.Tracks.Add(trackToAdd, trackToAdd.Index);
+
+
+            var existsInPlaylist = thePlaylist.playlist.Tracks.Any(x => new Track(x).Id == trackId);
+            if (!existsInPlaylist)
+                thePlaylist.playlist.Tracks.Add(trackToAdd, trackToAdd.Index);
 
             var track = new Track(trackToAdd);
 

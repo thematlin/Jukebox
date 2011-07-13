@@ -35,8 +35,7 @@
                 <table>
                 @foreach (var track in letterList)
                 {
-                    var searchPosition = "track_" + track.PlaylistPosition;
-                    <tr><td>@track.ArtistsAndName</td><td id="@track.Id"><a href="#" id="@searchPosition" class="AddToQueue"><img src="@Url.Content("~/Content/images/add.png")" alt="Add" title="Play" class="media-icon" /></a></td></tr>
+                    <tr><td>@track.ArtistsAndName</td><td id="@track.Id"><a href="#" class="AddToQueue"><img src="@Url.Content("~/Content/images/add.png")" alt="Add" title="Play" class="media-icon" /></a></td></tr>
                 }
                 </table>
 	        }
@@ -45,7 +44,6 @@
         <div id="tab-artists">All artists</div>
 
         <div id="tab-albums">All albums</div>
-
 
     </div>
     
@@ -59,13 +57,11 @@
 
             $('.AddToQueue').click(function () {
                 var searchQuery = '@searchedQuery';
-                var trackIdElement = $(this).attr('id').split('_');
-                var trackPosition = trackIdElement[1];
                 var trackId = $(this).parent().attr('id');
 
                 $.ajax({
                     url: '@Url.Content("~/Jukebox/AddSearchedTrackToQueue")',
-                    data: { query: searchQuery, trackPosition: trackPosition, trackId: trackId },
+                    data: { query: searchQuery, trackId: trackId },
                     success: function () {
 
                     }

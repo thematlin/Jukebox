@@ -7,6 +7,6 @@ namespace Jukebox.Infrastructure.Services
     {
         IEnumerable<JukeboxTrack> GetAllTracks();
         JukeboxSearch Search(string query);
-        void PlayTrack(string query, int trackPosition, string trackId);
+        void PlayTrack(string query, string trackId);
     }
 }

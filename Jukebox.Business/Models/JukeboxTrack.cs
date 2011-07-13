@@ -15,8 +15,6 @@ namespace Jukebox.Business.Models
 
         public IList<JukeboxArtist> Artists { get; set; }
 
-        public int PlaylistPosition { get; set; }
-
         public string ArtistsAndName { get; set; }
     }
 }

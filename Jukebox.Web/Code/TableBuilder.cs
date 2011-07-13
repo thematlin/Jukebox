@@ -99,7 +99,7 @@ namespace Jukebox.Web.Code
             }
 
 
-            columnPart.Append("<a href=\"#\" id=\"trackId_" + track.PlaylistPosition + "\" class=\"" + GetAddButtonClass(kind) + "\">");
+            //columnPart.Append("<a href=\"#\" id=\"trackId_" + track.PlaylistPosition + "\" class=\"" + GetAddButtonClass(kind) + "\">");
             columnPart.Append(GetImage(kind) + "</a></td>");
 
             return columnPart.ToString();

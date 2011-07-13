@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Security.Authentication;
 using Jukebox.Business.Models;
 using Jukebox.Infrastructure.ObjectMapper;
 using Jukebox.Infrastructure.SpotiFireServer;
@@ -63,6 +64,11 @@ namespace Jukebox.Infrastructure.Services.SpotiFireService
             {
                 var loggedIn = _spotiFire.Login(ConfigurationManager.AppSettings["SpotifyUserName"],
                                                 ConfigurationManager.AppSettings["SpotifyPassword"]);
+
+                if (!loggedIn)
+                {
+                    throw new AuthenticationException("Spotify authentication failed. Check user name and password in cofiguration file.");
+                }
             }
         }
 

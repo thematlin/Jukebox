@@ -25,15 +25,11 @@ namespace Jukebox.Infrastructure.ObjectMapper
         {
             var jukeboxTracks = new List<JukeboxTrack>();
 
-            var trackCount = 0;
             foreach (var track in tracks)
             {
                 var jukeTrack = MapSpotiFireTrackToJukeboxTrack(track);
-                jukeTrack.PlaylistPosition = trackCount;
 
                 jukeboxTracks.Add(jukeTrack);
-
-                trackCount++;
             }
 
             var readOnlyCollection = new ReadOnlyCollection<JukeboxTrack>(jukeboxTracks);
@@ -49,7 +45,6 @@ namespace Jukebox.Infrastructure.ObjectMapper
             var jukeboxTrack = new JukeboxTrack();
 
             jukeboxTrack.Id = track.Id;
-            jukeboxTrack.PlaylistPosition = track.PlaylistPosition;
             jukeboxTrack.ArtistsAndName = track.ArtistAndName;
             jukeboxTrack.Name = track.Name;
             jukeboxTrack.Length = track.Length;

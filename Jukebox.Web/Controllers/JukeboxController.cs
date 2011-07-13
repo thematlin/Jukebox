@@ -17,9 +17,9 @@ namespace Jukebox.Web.Controllers
             return View();
         }
 
-        public void AddSearchedTrackToQueue(string query, int trackPosition, string trackId)
+        public void AddSearchedTrackToQueue(string query, string trackId)
         {
-            _jukeboxService.PlayTrack(query, trackPosition, trackId);
+            _jukeboxService.PlayTrack(query, trackId);
         }
     }
 }

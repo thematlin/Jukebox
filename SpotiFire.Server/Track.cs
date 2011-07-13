@@ -18,7 +18,6 @@ namespace SpotiFire.Server
             IsAvailable = track.IsAvailable;
             Popularity = track.Popularity;
             IsStarred = track.IsStarred;
-            PlaylistPosition = track.Index;
         }
 
         [DataMember]
@@ -34,9 +33,6 @@ namespace SpotiFire.Server
             }
             internal set { if (value == null) throw new ArgumentNullException("value"); }
         }
-
-        [DataMember]
-        public int PlaylistPosition { get; set; }
 
         [DataMember]
         public string Name { get; set; }
@@ -82,6 +78,37 @@ namespace SpotiFire.Server
                 return artists + " - " + Name;
             } 
             internal set { if (value == null) throw new ArgumentNullException("value"); }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof (Track)) return false;
+            return Equals((Track) obj);
+        }
+
+        public bool Equals(Track other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Equals(other.Id, Id);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var result = (Name != null ? Name.GetHashCode() : 0);
+                result = (result*397) ^ (Artists != null ? Artists.GetHashCode() : 0);
+                result = (result*397) ^ (Album != null ? Album.GetHashCode() : 0);
+                result = (result*397) ^ Length.GetHashCode();
+                result = (result*397) ^ IsAvailable.GetHashCode();
+                result = (result*397) ^ Popularity;
+                result = (result*397) ^ IsStarred.GetHashCode();
+                result = (result*397) ^ Id.GetHashCode();
+                return result;
+            }
         }
     }
 }
