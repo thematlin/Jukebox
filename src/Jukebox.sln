@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jukebox.Site", "Jukebox.Site\Jukebox.Site.csproj", "{18026F5A-C215-4CFA-AA03-E95B2D6F28DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jukebox.Web.Tests", "Jukebox.Web.Tests\Jukebox.Web.Tests.csproj", "{76C25887-6481-40E2-ADBF-212BD46B2CA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{60B065EA-D927-4F27-955D-F0737BBAB3A2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18026F5A-C215-4CFA-AA03-E95B2D6F28DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18026F5A-C215-4CFA-AA03-E95B2D6F28DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18026F5A-C215-4CFA-AA03-E95B2D6F28DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18026F5A-C215-4CFA-AA03-E95B2D6F28DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76C25887-6481-40E2-ADBF-212BD46B2CA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76C25887-6481-40E2-ADBF-212BD46B2CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76C25887-6481-40E2-ADBF-212BD46B2CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76C25887-6481-40E2-ADBF-212BD46B2CA8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{76C25887-6481-40E2-ADBF-212BD46B2CA8} = {60B065EA-D927-4F27-955D-F0737BBAB3A2}
+	EndGlobalSection
+EndGlobal
